@@ -238,7 +238,7 @@ const CreateActivityPage = () => {
               type="button"
               onClick={handleSubmit}
               fullWidth
-              className="bg-[#FF4500] hover:bg-[#E03E00] text-white py-3 rounded-md font-medium mt-6"
+              className="bg-[#B3FF3B] hover:bg-[#a1e535] text-black py-3 rounded-md font-medium mt-6"
             >
               CADASTRAR ATIVIDADE
             </Button>
@@ -262,7 +262,7 @@ const CreateActivityPage = () => {
             <Button
               type="button"
               onClick={() => setIsNotifyModalOpen(false)}
-              className="bg-[#FF4500] hover:bg-[#E03E00] text-white py-2 px-4 rounded-md font-medium"
+              className="bg-[#B3FF3B] hover:bg-[#a1e535] text-black py-2 px-4 rounded-md font-medium"
             >
               ENVIAR NOTIFICAÇÃO
             </Button>
