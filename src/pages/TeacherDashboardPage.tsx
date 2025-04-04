@@ -17,7 +17,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import { MdMenu, MdFilterList, MdRefresh } from "react-icons/md";
+import { MdMenu, MdFilterList, MdRefresh, MdClose } from "react-icons/md";
 
 const TeacherDashboardPage = () => {
   const [selectedClass, setSelectedClass] = useState<string>("");
@@ -82,11 +82,8 @@ const TeacherDashboardPage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Side Menu */}
-      <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-
       {/* Header */}
-      <header className="bg-[#141414] shadow-sm">
+      <header className="bg-[#141414] shadow-sm relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
             <div className="flex items-center">
@@ -96,11 +93,18 @@ const TeacherDashboardPage = () => {
           </div>
           <button
             className="text-gray-400 hover:text-white"
-            onClick={() => setIsMenuOpen(true)}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <MdMenu className="h-6 w-6" />
+            {isMenuOpen ? (
+              <MdClose className="h-6 w-6" />
+            ) : (
+              <MdMenu className="h-6 w-6" />
+            )}
           </button>
         </div>
+
+        {/* Side Menu */}
+        <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       </header>
 
       {/* Main Content */}
