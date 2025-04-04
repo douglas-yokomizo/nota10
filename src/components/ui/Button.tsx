@@ -44,7 +44,11 @@ const Button: React.FC<ButtonProps> = ({
 
   const widthClass = fullWidth ? "w-full" : "";
 
-  const buttonClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} ${className}`;
+  // If a custom className is provided that includes bg-*, don't apply the variant's background classes
+  const hasCustomBg = className.includes("bg-");
+
+  const variantClass = hasCustomBg ? "" : variantClasses[variant];
+  const buttonClasses = `${baseClasses} ${variantClass} ${sizeClasses[size]} ${widthClass} ${className}`;
 
   return (
     <button className={buttonClasses} {...props}>
