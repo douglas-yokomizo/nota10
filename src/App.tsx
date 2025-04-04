@@ -36,6 +36,8 @@ function App() {
           <Route path="/classes-students" element={<ClassesStudentsPage />} />
           <Route path="/turmas" element={<TurmasPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/student-activities" element={<TurmasPage />} />
+          <Route path="/assignments" element={<TurmasPage />} />
 
           {/* 404 Page */}
           <Route path="*" element={<NotFoundPage />} />

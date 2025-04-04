@@ -6,11 +6,7 @@ import {
   MdPeople,
   MdNotifications,
   MdExitToApp,
-  MdClass,
   MdAssignment,
-  MdSchool,
-  MdPerson,
-  MdForum,
 } from "react-icons/md";
 import { useUser } from "../../contexts/UserContext";
 
@@ -30,19 +26,18 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
       <div className="container mx-auto px-4 py-6">
         <div className="mb-6"></div>
         <nav className="space-y-6">
-          {/* Common menu items for all users */}
-          <Link
-            to={user && isTeacher() ? "/teacher-dashboard" : "/dashboard"}
-            className="flex items-center text-white hover:text-gray-300 transition-colors"
-            onClick={onClose}
-          >
-            <MdDashboard className="mr-3 h-5 w-5" />
-            <span>Dashboard</span>
-          </Link>
-
-          {/* Teacher-specific menu items */}
+          {/* Teacher Menu Items */}
           {user && isTeacher() && (
             <>
+              <Link
+                to="/teacher-dashboard"
+                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                onClick={onClose}
+              >
+                <MdDashboard className="mr-3 h-5 w-5" />
+                <span>Dashboard</span>
+              </Link>
+
               <Link
                 to="/create-activity"
                 className="flex items-center text-white hover:text-gray-300 transition-colors"
@@ -60,77 +55,83 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
                 <MdPeople className="mr-3 h-5 w-5" />
                 <span>Turmas e Alunos</span>
               </Link>
+
+              <Link
+                to="/notifications"
+                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                onClick={onClose}
+              >
+                <MdNotifications className="mr-3 h-5 w-5" />
+                <span>Notificações</span>
+              </Link>
             </>
           )}
 
-          {/* Menu items for teachers and students */}
-          {user && (isTeacher() || isStudent()) && (
-            <Link
-              to="/turmas"
-              className="flex items-center text-white hover:text-gray-300 transition-colors"
-              onClick={onClose}
-            >
-              <MdClass className="mr-3 h-5 w-5" />
-              <span>Turmas</span>
-            </Link>
-          )}
-
-          {/* Student-specific menu items */}
+          {/* Student Menu Items */}
           {user && isStudent() && (
             <>
+              <Link
+                to="/dashboard"
+                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                onClick={onClose}
+              >
+                <MdDashboard className="mr-3 h-5 w-5" />
+                <span>Dashboard</span>
+              </Link>
+
               <Link
                 to="/assignments"
                 className="flex items-center text-white hover:text-gray-300 transition-colors"
                 onClick={onClose}
               >
                 <MdAssignment className="mr-3 h-5 w-5" />
-                <span>Atividades</span>
+                <span>Minhas atividades</span>
               </Link>
 
               <Link
-                to="/grades"
+                to="/notifications"
                 className="flex items-center text-white hover:text-gray-300 transition-colors"
                 onClick={onClose}
               >
-                <MdSchool className="mr-3 h-5 w-5" />
-                <span>Notas</span>
+                <MdNotifications className="mr-3 h-5 w-5" />
+                <span>Notificações</span>
               </Link>
             </>
           )}
 
-          {/* Parent-specific menu items */}
+          {/* Parent Menu Items */}
           {user && isParent() && (
             <>
               <Link
-                to="/children"
+                to="/parent-dashboard"
                 className="flex items-center text-white hover:text-gray-300 transition-colors"
                 onClick={onClose}
               >
-                <MdPerson className="mr-3 h-5 w-5" />
-                <span>Meus Filhos</span>
+                <MdDashboard className="mr-3 h-5 w-5" />
+                <span>Dashboard</span>
               </Link>
 
               <Link
-                to="/parent-teacher"
+                to="/student-activities"
                 className="flex items-center text-white hover:text-gray-300 transition-colors"
                 onClick={onClose}
               >
-                <MdForum className="mr-3 h-5 w-5" />
-                <span>Comunicação</span>
+                <MdAssignment className="mr-3 h-5 w-5" />
+                <span>Atividades do aluno</span>
+              </Link>
+
+              <Link
+                to="/notifications"
+                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                onClick={onClose}
+              >
+                <MdNotifications className="mr-3 h-5 w-5" />
+                <span>Notificações</span>
               </Link>
             </>
           )}
 
-          {/* Common menu items for all users */}
-          <Link
-            to="/notifications"
-            className="flex items-center text-white hover:text-gray-300 transition-colors"
-            onClick={onClose}
-          >
-            <MdNotifications className="mr-3 h-5 w-5" />
-            <span>Notificações</span>
-          </Link>
-
+          {/* Logout button for all users */}
           <div className="pt-6 mt-6 border-t border-gray-700">
             <Link
               to="/login"
