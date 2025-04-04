@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOTA10 - Plataforma Educacional FIAP</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: "#FF4500",
+                dark: "#E03E00",
+                light: "#FF6A33",
+              },
+              secondary: {
+                DEFAULT: "#1E293B",
+                dark: "#0F172A",
+                light: "#334155",
+              },
+              background: "#F8FAFC",
+              surface: "#FFFFFF",
+              error: "#DC2626",
+              success: "#16A34A",
+              warning: "#FBBF24",
+              info: "#3B82F6",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
