@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
+import StudentDashboardPage from "./pages/StudentDashboardPage";
+import ParentDashboardPage from "./pages/ParentDashboardPage";
 import TeacherDashboardPage from "./pages/TeacherDashboardPage";
 import CreateActivityPage from "./pages/CreateActivityPage";
 import ClassesStudentsPage from "./pages/ClassesStudentsPage";
@@ -27,7 +29,8 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<StudentDashboardPage />} />
+          <Route path="/parent-dashboard" element={<ParentDashboardPage />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboardPage />} />
           <Route path="/create-activity" element={<CreateActivityPage />} />
           <Route path="/classes-students" element={<ClassesStudentsPage />} />

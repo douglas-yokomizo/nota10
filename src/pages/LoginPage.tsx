@@ -31,7 +31,7 @@ const LoginPage = () => {
     } else if (isStudent()) {
       navigate("/dashboard");
     } else if (isParent()) {
-      navigate("/dashboard");
+      navigate("/parent-dashboard");
     }
   };
 
