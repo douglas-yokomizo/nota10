@@ -1,13 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { login, loading, error } = useUser();
+  const {
+    login,
+    loading,
+    error,
+    isAuthenticated,
+    isTeacher,
+    isStudent,
+    isParent,
+  } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
+
+  // Check if user is already authenticated and redirect accordingly
+  useEffect(() => {
+    if (isAuthenticated) {
+      redirectBasedOnRole();
+    }
+  }, [isAuthenticated, navigate, isTeacher, isStudent, isParent]);
+
+  // Function to redirect based on user role
+  const redirectBasedOnRole = () => {
+    if (isTeacher()) {
+      navigate("/teacher-dashboard");
+    } else if (isStudent()) {
+      navigate("/dashboard");
+    } else if (isParent()) {
+      navigate("/dashboard");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,8 +41,8 @@ const LoginPage = () => {
 
     try {
       await login(username, password);
-      // Redirect based on user role
-      navigate("/turmas");
+      // Redirect based on user role after successful login
+      redirectBasedOnRole();
     } catch (err) {
       if (err instanceof Error) {
         setLoginError(err.message);
