@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Select from "../components/ui/Select";
 import SideMenu from "../components/layout/SideMenu";
@@ -208,9 +208,11 @@ const TurmasPage = () => {
                       className="bg-[#E2E2E2] p-4 rounded-md flex justify-between items-center"
                     >
                       <h3 className="font-bold text-sm">{activity.title}</h3>
-                      <Button className="bg-[#6952EB] hover:bg-[#5842e6] text-white py-1 px-4 rounded-md text-xs font-bold">
-                        ABRIR
-                      </Button>
+                      <Link to={`/class-progress/${activity.id}`}>
+                        <Button className="bg-[#6952EB] hover:bg-[#5842e6] text-white py-1 px-4 rounded-md text-xs font-bold">
+                          ABRIR
+                        </Button>
+                      </Link>
                     </div>
                   ))
                 ) : (

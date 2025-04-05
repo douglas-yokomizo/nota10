@@ -15,6 +15,7 @@ import AssignmentsPage from "./pages/AssignmentsPage";
 import AssignmentDetailPage from "./pages/AssignmentDetailPage";
 import StudentActivitiesPage from "./pages/StudentActivitiesPage";
 import ParentViewAssignmentPage from "./pages/ParentViewAssignmentPage";
+import ClassProgressPage from "./pages/ClassProgressPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { UserProvider } from "./contexts/UserContext";
 
@@ -49,6 +50,10 @@ function App() {
           <Route
             path="/parent-view-assignment/:id"
             element={<ParentViewAssignmentPage />}
+          />
+          <Route
+            path="/class-progress/:activityId"
+            element={<ClassProgressPage />}
           />
 
           {/* 404 Page */}
