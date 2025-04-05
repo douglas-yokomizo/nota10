@@ -11,6 +11,10 @@ import CreateActivityPage from "./pages/CreateActivityPage";
 import ClassesStudentsPage from "./pages/ClassesStudentsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import TurmasPage from "./pages/TurmasPage";
+import AssignmentsPage from "./pages/AssignmentsPage";
+import AssignmentDetailPage from "./pages/AssignmentDetailPage";
+import StudentActivitiesPage from "./pages/StudentActivitiesPage";
+import ParentViewAssignmentPage from "./pages/ParentViewAssignmentPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { UserProvider } from "./contexts/UserContext";
 
@@ -36,8 +40,16 @@ function App() {
           <Route path="/classes-students" element={<ClassesStudentsPage />} />
           <Route path="/turmas" element={<TurmasPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
-          <Route path="/student-activities" element={<TurmasPage />} />
-          <Route path="/assignments" element={<TurmasPage />} />
+          <Route
+            path="/student-activities"
+            element={<StudentActivitiesPage />}
+          />
+          <Route path="/assignments" element={<AssignmentsPage />} />
+          <Route path="/assignment/:id" element={<AssignmentDetailPage />} />
+          <Route
+            path="/parent-view-assignment/:id"
+            element={<ParentViewAssignmentPage />}
+          />
 
           {/* 404 Page */}
           <Route path="*" element={<NotFoundPage />} />
