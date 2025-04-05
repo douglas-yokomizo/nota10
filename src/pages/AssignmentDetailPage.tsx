@@ -10,9 +10,10 @@ import {
   MdCheck,
 } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
+import { Activity, Question, Option } from "../types/activity";
 
 // Mock activity data
-const activityData = {
+const activityData: Activity = {
   id: 1,
   title: "Mapa Mundi: Desafio das Capitais",
   subject: "Geografia",
@@ -65,7 +66,7 @@ const AssignmentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated, logout, user } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activity, setActivity] = useState(activityData);
+  const [activity, setActivity] = useState<Activity>(activityData);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated
@@ -171,12 +172,12 @@ const AssignmentDetailPage = () => {
         </div>
 
         {/* Questions */}
-        {activity.questions.map((question) => (
+        {activity.questions.map((question: Question) => (
           <div key={question.id} className="mb-8">
             <div className="bg-[#E2E2E2] p-6 rounded-md">
               <h2 className="text-base font-bold mb-4">{question.text}</h2>
               <div className="space-y-3">
-                {question.options.map((option) => (
+                {question.options.map((option: Option) => (
                   <div
                     key={option.id}
                     className={`
@@ -203,7 +204,7 @@ const AssignmentDetailPage = () => {
         ))}
 
         {/* Grade */}
-        {activity.status === "completed" && (
+        {activity.status === "completed" && activity.grade !== undefined && (
           <div className="bg-[#61E865] p-4 rounded-lg text-center">
             <p className="text-white font-bold">
               Nota: {activity.grade.toFixed(1)}

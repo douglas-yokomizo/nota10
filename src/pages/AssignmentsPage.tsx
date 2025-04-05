@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import SideMenu from "../components/layout/SideMenu";
 import { MdMenu, MdClose, MdExitToApp } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
+import { ActivityListItem } from "../types/activity";
 
 // Mock activities data
-const inProgressActivities = [
+const inProgressActivities: ActivityListItem[] = [
   {
     id: 1,
     title: "Mapa Mundi: Desafio das Capitais",
@@ -30,7 +31,7 @@ const inProgressActivities = [
   },
 ];
 
-const pendingActivities = [
+const pendingActivities: ActivityListItem[] = [
   {
     id: 4,
     title: "Desafio dos Números: Multiplicação e Divisão",
@@ -47,7 +48,7 @@ const pendingActivities = [
   },
 ];
 
-const completedActivities = [
+const completedActivities: ActivityListItem[] = [
   {
     id: 6,
     title: "Caça-Erros: Ortografia",
@@ -152,7 +153,9 @@ const AssignmentsPage = () => {
         {/* In Progress Activities Section */}
         <div className="mb-8">
           <div className="bg-[#141414] rounded-t-[20px] p-4">
-            <h2 className="text-white font-bold text-lg">Atividades em progresso</h2>
+            <h2 className="text-white font-bold text-lg">
+              Atividades em progresso
+            </h2>
           </div>
           <div className="bg-[#F5F5F5] rounded-b-[20px] p-6">
             <div className="grid grid-cols-1 gap-4">
@@ -176,7 +179,9 @@ const AssignmentsPage = () => {
         {/* Pending Activities Section */}
         <div className="mb-8">
           <div className="bg-[#52C2EB] rounded-t-[20px] p-4">
-            <h2 className="text-black font-bold text-lg">Atividades Pendentes</h2>
+            <h2 className="text-black font-bold text-lg">
+              Atividades Pendentes
+            </h2>
           </div>
           <div className="bg-[#F5F5F5] rounded-b-[20px] p-6">
             <div className="grid grid-cols-1 gap-4">
@@ -200,7 +205,9 @@ const AssignmentsPage = () => {
         {/* Completed Activities Section */}
         <div className="mb-8">
           <div className="bg-[#B3FF3B] rounded-t-[20px] p-4">
-            <h2 className="text-black font-bold text-lg">Atividades Concluídas</h2>
+            <h2 className="text-black font-bold text-lg">
+              Atividades Concluídas
+            </h2>
           </div>
           <div className="bg-[#F5F5F5] rounded-b-[20px] p-6">
             <div className="grid grid-cols-1 gap-4">

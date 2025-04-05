@@ -1,12 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/ui/Button";
 import SideMenu from "../components/layout/SideMenu";
-import { MdMenu, MdClose, MdExitToApp, MdArrowBack, MdCheck } from "react-icons/md";
+import {
+  MdMenu,
+  MdClose,
+  MdExitToApp,
+  MdArrowBack,
+  MdCheck,
+} from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
+import { Activity, Question, Option } from "../types/activity";
 
 // Mock activity data
-const activitiesData = [
+const activitiesData: Activity[] = [
   {
     id: 1,
     title: "Mapa Mundi: Desafio das Capitais",
@@ -98,7 +105,7 @@ const ParentViewAssignmentPage = () => {
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated, logout, user, isParent } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activity, setActivity] = useState<any>(null);
+  const [activity, setActivity] = useState<Activity | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated or not a parent
@@ -113,9 +120,7 @@ const ParentViewAssignmentPage = () => {
   // In a real app, fetch the activity data based on the ID
   useEffect(() => {
     if (id) {
-      const foundActivity = activitiesData.find(
-        (act) => act.id === Number(id)
-      );
+      const foundActivity = activitiesData.find((act) => act.id === Number(id));
       if (foundActivity) {
         setActivity(foundActivity);
       } else {
@@ -222,12 +227,12 @@ const ParentViewAssignmentPage = () => {
         </div>
 
         {/* Questions */}
-        {activity.questions.map((question: any) => (
+        {activity.questions.map((question: Question) => (
           <div key={question.id} className="mb-8">
             <div className="bg-[#E2E2E2] p-6 rounded-md">
               <h2 className="text-base font-bold mb-4">{question.text}</h2>
               <div className="space-y-3">
-                {question.options.map((option: any) => (
+                {question.options.map((option: Option) => (
                   <div
                     key={option.id}
                     className={`
@@ -242,9 +247,10 @@ const ParentViewAssignmentPage = () => {
                     `}
                   >
                     <span className="font-bold text-sm">{option.text}</span>
-                    {question.selectedOption === option.id && option.isCorrect && (
-                      <MdCheck className="text-[#61E865] h-5 w-5" />
-                    )}
+                    {question.selectedOption === option.id &&
+                      option.isCorrect && (
+                        <MdCheck className="text-[#61E865] h-5 w-5" />
+                      )}
                   </div>
                 ))}
               </div>
@@ -253,9 +259,11 @@ const ParentViewAssignmentPage = () => {
         ))}
 
         {/* Grade */}
-        {activity.status === "completed" && (
+        {activity.status === "completed" && activity.grade !== undefined && (
           <div className="bg-[#61E865] p-4 rounded-lg text-center">
-            <p className="text-white font-bold">Nota: {activity.grade.toFixed(1)}</p>
+            <p className="text-white font-bold">
+              Nota: {activity.grade.toFixed(1)}
+            </p>
           </div>
         )}
 
@@ -263,7 +271,11 @@ const ParentViewAssignmentPage = () => {
         <div className="mt-8 flex justify-center">
           <Button
             className="bg-[#6952EB] hover:bg-[#5842e6] text-white py-2 px-6 rounded-md font-bold"
-            onClick={() => window.open(`mailto:professor@escola.com?subject=Sobre a atividade: ${activity.title}&body=Olá professor(a), gostaria de conversar sobre a atividade "${activity.title}" do meu filho(a) ${activity.studentName}.`)}
+            onClick={() =>
+              window.open(
+                `mailto:professor@escola.com?subject=Sobre a atividade: ${activity.title}&body=Olá professor(a), gostaria de conversar sobre a atividade "${activity.title}" do meu filho(a) ${activity.studentName}.`
+              )
+            }
           >
             Contatar Professor
           </Button>
