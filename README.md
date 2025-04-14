@@ -1,54 +1,166 @@
-# React + TypeScript + Vite
+# Nota10 - Plataforma Educacional
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre o Projeto
 
-Currently, two official plugins are available:
+O Nota10 é uma plataforma educacional desenvolvida para facilitar a comunicação e o acompanhamento entre professores, alunos e responsáveis. A aplicação permite que professores criem e gerenciem atividades, acompanhem o progresso dos alunos, enquanto os alunos podem realizar as atividades e os responsáveis podem monitorar o desempenho de seus filhos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **React 19**: Framework JavaScript para construção de interfaces de usuário
+- **TypeScript**: Superset tipado de JavaScript
+- **Vite**: Ferramenta de build rápida para desenvolvimento web moderno
+- **Tailwind CSS**: Framework CSS utilitário para design responsivo
+- **React Router Dom**: Biblioteca para gerenciamento de rotas
+- **Recharts**: Biblioteca para criação de gráficos
+- **React Icons**: Biblioteca de ícones para React
+- **Heroicons**: Conjunto de ícones SVG
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Estrutura do Projeto
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+├── public/              # Arquivos públicos
+├── src/                 # Código fonte
+│   ├── assets/          # Recursos estáticos (imagens, etc)
+│   ├── components/      # Componentes reutilizáveis
+│   │   ├── layout/      # Componentes de layout (Header, Footer, etc)
+│   │   └── ui/          # Componentes de UI (Button, Card, etc)
+│   ├── contexts/        # Contextos React (UserContext, etc)
+│   ├── hooks/           # Hooks personalizados
+│   ├── pages/           # Páginas da aplicação
+│   ├── services/        # Serviços (API, autenticação, etc)
+│   ├── types/           # Definições de tipos TypeScript
+│   ├── App.tsx          # Componente principal
+│   ├── main.tsx         # Ponto de entrada da aplicação
+│   └── index.css        # Estilos globais
+├── .gitignore           # Arquivos ignorados pelo Git
+├── index.html           # Arquivo HTML principal
+├── package.json         # Dependências e scripts
+├── postcss.config.cjs   # Configuração do PostCSS
+├── tailwind.config.cjs  # Configuração do Tailwind CSS
+├── tsconfig.json        # Configuração do TypeScript
+└── vite.config.ts       # Configuração do Vite
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Funcionalidades Principais
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Autenticação e Controle de Acesso
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+O sistema possui três tipos de usuários, cada um com acesso a funcionalidades específicas:
+
+- **Professor**: Pode criar atividades, gerenciar turmas, visualizar o progresso dos alunos e enviar notificações
+- **Aluno**: Pode visualizar e realizar atividades, acompanhar seu progresso e receber notificações
+- **Responsável**: Pode acompanhar o desempenho do(s) aluno(s), visualizar atividades e receber notificações
+
+### Dashboard Personalizado
+
+Cada tipo de usuário possui um dashboard personalizado com informações relevantes:
+
+- **Dashboard do Professor**: Exibe gráficos de desempenho dos alunos, comparativo entre turmas e progresso das atividades
+- **Dashboard do Aluno**: Mostra o progresso do aluno, timeline de participação e ranking na turma
+- **Dashboard do Responsável**: Apresenta o desempenho do aluno, gráficos de progresso e histórico de atividades
+
+### Gerenciamento de Atividades
+
+- Criação de atividades pelo professor
+- Atribuição de atividades a turmas específicas
+- Acompanhamento do status das atividades (pendente, iniciada, concluída)
+- Visualização detalhada do progresso de cada aluno
+
+### Sistema de Notificações
+
+- Notificações para alunos sobre novas atividades
+- Notificações para responsáveis sobre o desempenho dos alunos
+- Comunicação direta entre professores e responsáveis
+
+## Instalação e Execução
+
+### Pré-requisitos
+
+- Node.js (versão 18 ou superior)
+- npm ou yarn
+
+### Passos para Instalação
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/douglas-yokomizo/nota10.git
+   cd nota10
+   ```
+
+2. Instale as dependências:
+
+   ```bash
+   npm install
+   # ou
+   yarn
+   ```
+
+3. Execute o projeto em modo de desenvolvimento:
+
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+4. Acesse a aplicação em `http://localhost:5173`
+
+## Credenciais de Acesso (Ambiente de Desenvolvimento)
+
+Para testar a aplicação, utilize as seguintes credenciais:
+
+- **Professor**:
+
+  - Usuário: professor
+  - Senha: 123456
+
+- **Aluno**:
+
+  - Usuário: aluno
+  - Senha: 123456
+
+- **Responsável**:
+  - Usuário: responsavel
+  - Senha: 123456
+
+## Scripts Disponíveis
+
+- `npm run dev`: Inicia o servidor de desenvolvimento
+- `npm run build`: Compila o projeto para produção
+- `npm run lint`: Executa a verificação de linting
+- `npm run preview`: Visualiza a versão de produção localmente
+
+## Design
+
+O design da aplicação foi desenvolvido no Figma e pode ser acessado através do link:
+[Figma - Nota10](https://www.figma.com/design/Yv6Mff8oc7l7h6dMnXgkpU/Hackaton-Postech-FIAP)
+
+## Princípios de Desenvolvimento
+
+O projeto segue os princípios SOLID e DRY:
+
+- **S** - Responsabilidade Única: Cada componente tem uma única responsabilidade
+- **O** - Aberto/Fechado: Entidades abertas para extensão, fechadas para modificação
+- **L** - Substituição de Liskov: Subtipos podem substituir seus tipos base
+- **I** - Segregação de Interface: Interfaces específicas são melhores que uma interface geral
+- **D** - Inversão de Dependência: Dependa de abstrações, não de implementações concretas
+- **DRY** - Don't Repeat Yourself: Evita duplicação de código através de componentes reutilizáveis
+
+## Contribuição
+
+Para contribuir com o projeto, siga os passos abaixo:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Faça commit das suas alterações (`git commit -m 'Adiciona nova feature'`)
+4. Faça push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
+
+## Contato
+
+Link do Projeto: [https://github.com/douglas-yokomizo/nota10](https://github.com/douglas-yokomizo/nota10)
