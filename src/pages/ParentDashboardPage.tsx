@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Card from "../components/ui/Card";
 import { useUser } from "../contexts/UserContext";
+
 import {
   PieChart,
   Pie,
@@ -20,47 +19,10 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import { MdMenu, MdClose, MdExitToApp } from "react-icons/md";
-import SideMenu from "../components/layout/SideMenu";
+import { Header } from "../components/layout/Header";
 
 const ParentDashboardPage = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated, user, isParent, logout } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  // Redirect to login if not authenticated or not a parent
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    } else if (!isParent()) {
-      // If authenticated but not a parent, redirect to appropriate dashboard
-      navigate("/login");
-    }
-  }, [isAuthenticated, isParent, navigate]);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
+  const { user } = useUser();
 
   // Mock data for the student progress pie chart
   const studentProgressData = [
@@ -94,46 +56,7 @@ const ParentDashboardPage = () => {
 
   return (
     <div className="bg-[#FFFFFF] min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-md relative">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </button>
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <div ref={menuRef}>
-          <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -153,8 +76,8 @@ const ParentDashboardPage = () => {
             <div className="p-4">
               <h2 className="text-base font-bold mb-2">Gráfico do Aluno</h2>
               <p className="text-sm text-gray-500 mb-4">
-                Gráfico Pizza com as métricas de soma do Aluno das atividades que já concluiu, 
-                que não concluíu e que não iniciou.
+                Gráfico Pizza com as métricas de soma do Aluno das atividades
+                que já concluiu, que não concluíu e que não iniciou.
               </p>
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -218,11 +141,17 @@ const ParentDashboardPage = () => {
             <div className="p-4">
               <h2 className="text-base font-bold mb-2">Desempenho do Aluno</h2>
               <p className="text-sm text-gray-500 mb-4">
-                Gráfico de Radar com as matérias que o aluno tem melhor desempenho.
+                Gráfico de Radar com as matérias que o aluno tem melhor
+                desempenho.
               </p>
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={performanceData}>
+                  <RadarChart
+                    cx="50%"
+                    cy="50%"
+                    outerRadius="80%"
+                    data={performanceData}
+                  >
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <PolarRadiusAxis angle={30} domain={[0, 100]} />

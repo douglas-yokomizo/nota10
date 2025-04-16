@@ -1,16 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Button from "../components/ui/Button";
-import SideMenu from "../components/layout/SideMenu";
-import {
-  MdMenu,
-  MdClose,
-  MdExitToApp,
-  MdDelete,
-  MdArrowBack,
-} from "react-icons/md";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { MdDelete, MdArrowBack } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
 import { Notification } from "../types/notification";
+import { Header } from "../components/layout/Header";
 
 // Mock notifications for different user roles
 const studentNotifications: Notification[] = [
@@ -105,11 +98,8 @@ const teacherNotifications: Notification[] = [
 
 const NotificationsPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, logout, user, isTeacher, isStudent, isParent } =
-    useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, user, isTeacher, isStudent, isParent } = useUser();
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -131,29 +121,6 @@ const NotificationsPage = () => {
     }
   }, [user, isTeacher, isStudent, isParent]);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
   const handleDeleteNotification = (id: number) => {
     setNotifications(
       notifications.filter((notification) => notification.id !== id)
@@ -173,46 +140,7 @@ const NotificationsPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-sm relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </button>
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <div ref={menuRef}>
-          <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

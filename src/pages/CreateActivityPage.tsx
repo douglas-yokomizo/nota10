@@ -4,9 +4,8 @@ import Input from "../components/ui/Input";
 import TextArea from "../components/ui/TextArea";
 import Select from "../components/ui/Select";
 import Modal from "../components/ui/Modal";
-import SideMenu from "../components/layout/SideMenu";
-import { MdMenu, MdClose } from "react-icons/md";
 import useForm from "../hooks/useForm";
+import { Header } from "../components/layout/Header";
 
 interface Alternative {
   text: string;
@@ -24,7 +23,6 @@ interface ActivityFormValues {
 }
 
 const CreateActivityPage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNotifyModalOpen, setIsNotifyModalOpen] = useState(false);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<Question>({
@@ -124,30 +122,7 @@ const CreateActivityPage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-sm relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <button
-            className="text-gray-400 hover:text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <MdClose className="h-6 w-6" />
-            ) : (
-              <MdMenu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-
-        {/* Side Menu */}
-        <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-md mx-auto px-4 py-8">

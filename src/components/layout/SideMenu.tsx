@@ -23,7 +23,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
   return (
     <div className="absolute top-full left-0 right-0 z-50 bg-[#141414] text-white shadow-md">
       {/* Menu Items */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-0 pb-6">
         <div className="mb-6"></div>
         <nav className="space-y-6">
           {/* Teacher Menu Items */}

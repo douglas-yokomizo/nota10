@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/ui/Card";
 import { useUser } from "../contexts/UserContext";
+import logo from "../assets/logo.svg";
+
 import {
   PieChart,
   Pie,
@@ -89,10 +91,11 @@ const StudentDashboardPage = () => {
       <header className="bg-[#141414] shadow-md relative">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-10 md:h-12 lg:h-14 w-auto"
+            />
           </div>
           <div className="flex items-center space-x-4">
             {user && (

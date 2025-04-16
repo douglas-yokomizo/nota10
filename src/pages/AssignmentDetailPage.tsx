@@ -1,16 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/ui/Button";
-import SideMenu from "../components/layout/SideMenu";
-import {
-  MdMenu,
-  MdClose,
-  MdExitToApp,
-  MdArrowBack,
-  MdCheck,
-} from "react-icons/md";
+import { MdArrowBack, MdCheck } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
 import { Activity, Question, Option } from "../types/activity";
+import { Header } from "../components/layout/Header";
 
 // Mock activity data
 const activityData: Activity = {
@@ -64,10 +58,8 @@ const activityData: Activity = {
 const AssignmentDetailPage = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { isAuthenticated, logout, user } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useUser();
   const [activity, setActivity] = useState<Activity>(activityData);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -83,82 +75,20 @@ const AssignmentDetailPage = () => {
     console.log(`Fetching activity with ID: ${id}`);
   }, [id]);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
   return (
     <div className="bg-white min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-sm relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <Button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </Button>
-            <Button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <div ref={menuRef}>
-          <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
         <div className="mb-4">
-          <Button
-            onClick={() => navigate(-1)}
+          <button
+            onClick={() => navigate("/")}
             className="flex items-center text-gray-600 hover:text-gray-900"
           >
             <MdArrowBack className="mr-1" /> Voltar
-          </Button>
+          </button>
         </div>
 
         {/* Activity Header */}
