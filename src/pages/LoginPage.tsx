@@ -1,18 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
+import logo from "../assets/logo.svg";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const {
-    login,
-    loading,
-    error,
-    isAuthenticated,
-    isTeacher,
-    isStudent,
-    isParent,
-  } = useUser();
+  const { login, loading, isAuthenticated, isTeacher, isStudent, isParent } =
+    useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -53,12 +47,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-[#141414] flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <div className="flex items-center justify-center mb-8">
-            <span className="text-white text-4xl font-bold">Nota</span>
-            <span className="text-[#9FE870] text-4xl font-bold">10</span>
+            <img src={logo} />
           </div>
         </div>
 
@@ -75,7 +68,7 @@ const LoginPage = () => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 bg-black border border-gray-700 rounded-md focus:outline-none focus:border-[#9FE870] text-white placeholder-gray-500"
+              className="w-full px-4 py-4 bg-white border border-gray-700 rounded-md focus:outline-none focus:border-[#9FE870] text-black placeholder-gray-500"
               placeholder="Usuário"
               required
               disabled={loading}
@@ -88,7 +81,7 @@ const LoginPage = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-black border border-gray-700 rounded-md focus:outline-none focus:border-[#9FE870] text-white placeholder-gray-500"
+              className="w-full px-4 py-4 bg-white border border-gray-700 rounded-md focus:outline-none focus:border-[#9FE870] text-black placeholder-gray-500"
               placeholder="Senha"
               required
               disabled={loading}
@@ -98,7 +91,7 @@ const LoginPage = () => {
           <div>
             <button
               type="submit"
-              className="w-full bg-[#9FE870] hover:bg-[#8FD860] text-black font-medium py-3 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#B3FF3B] hover:opacity-90 font-semibold text-black font-medium py-4 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? "ENTRANDO..." : "ENTRAR"}

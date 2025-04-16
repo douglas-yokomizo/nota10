@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import SideMenu from "../components/layout/SideMenu";
-import { useUser } from "../contexts/UserContext";
 import {
   BarChart,
   Bar,
@@ -19,28 +16,13 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import {
-  MdMenu,
-  MdFilterList,
-  MdRefresh,
-  MdClose,
-  MdExitToApp,
-} from "react-icons/md";
+import { MdFilterList, MdRefresh } from "react-icons/md";
+import { Header } from "../components/layout/Header";
 
 const TeacherDashboardPage = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated, logout, user } = useUser();
   const [selectedClass, setSelectedClass] = useState<string>("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("performance");
-
-  // Redirect to login if not authenticated
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [isAuthenticated, navigate]);
 
   // Mock data for the dashboard
   const classes = [
@@ -97,51 +79,9 @@ const TeacherDashboardPage = () => {
     }
   }, [selectedClass]);
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-sm relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </button>
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

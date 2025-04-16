@@ -1,21 +1,17 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Modal from "../components/ui/Modal";
 import TextArea from "../components/ui/TextArea";
-import SideMenu from "../components/layout/SideMenu";
 import {
-  MdMenu,
-  MdClose,
-  MdExitToApp,
   MdArrowBack,
   MdNotifications,
   MdCheckBox,
   MdDelete,
   MdEdit,
 } from "react-icons/md";
-import { useUser } from "../contexts/UserContext";
 import { StudentProgress, StudentProgressStatus } from "../types/student";
+import { Header } from "../components/layout/Header";
 
 // Mock data for the class progress
 const mockStudentProgress: StudentProgress[] = [
@@ -67,54 +63,17 @@ const mockActivity = {
 const ClassProgressPage = () => {
   const navigate = useNavigate();
   const { activityId } = useParams<{ activityId: string }>();
-  const { isAuthenticated, logout, user, isTeacher } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNotifyModalOpen, setIsNotifyModalOpen] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState<StudentProgress | null>(
-    null
-  );
-  const [studentProgress, setStudentProgress] = useState<StudentProgress[]>(
-    mockStudentProgress
-  );
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  // Redirect to login if not authenticated or not a teacher
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    } else if (!isTeacher()) {
-      navigate("/login");
-    }
-  }, [isAuthenticated, isTeacher, navigate]);
+  const [selectedStudent, setSelectedStudent] =
+    useState<StudentProgress | null>(null);
+  const [studentProgress, setStudentProgress] =
+    useState<StudentProgress[]>(mockStudentProgress);
 
   // In a real app, fetch the activity and student progress data based on the ID
   useEffect(() => {
     // This would be an API call in a real application
     console.log(`Fetching activity with ID: ${activityId}`);
   }, [activityId]);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
 
   const handleNotifyParent = (student: StudentProgress) => {
     setSelectedStudent(student);
@@ -165,46 +124,7 @@ const ClassProgressPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Header */}
-      <header className="bg-[#141414] shadow-sm relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="flex items-center">
-              <span className="text-white text-2xl font-bold">N</span>
-              <span className="text-white text-2xl font-normal">ota10</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </button>
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <div ref={menuRef}>
-          <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
