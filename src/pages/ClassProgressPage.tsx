@@ -11,7 +11,6 @@ import {
   MdEdit,
 } from "react-icons/md";
 import { StudentProgress, StudentProgressStatus } from "../types/student";
-import { Header } from "../components/layout/Header";
 
 // Mock data for the class progress
 const mockStudentProgress: StudentProgress[] = [
@@ -124,8 +123,6 @@ const ClassProgressPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}

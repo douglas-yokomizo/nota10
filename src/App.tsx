@@ -20,36 +20,37 @@ function App() {
     <UserProvider>
       <Router>
         <Routes>
-          {/* Routes with MainLayout (header and footer) */}
-          <Route path="/home" element={<MainLayout />}>
-            <Route index element={<LoginPage />} />
-            {/* Add more routes with layout as needed */}
-          </Route>
-
-          {/* Routes without MainLayout */}
+          {/* Páginas sem Header (ex: Login) */}
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<StudentDashboardPage />} />
-          <Route path="/parent-dashboard" element={<ParentDashboardPage />} />
-          <Route path="/teacher-dashboard" element={<TeacherDashboardPage />} />
-          <Route path="/create-activity" element={<CreateActivityPage />} />
-          <Route path="/classes-students" element={<ClassesStudentsPage />} />
-          <Route path="/turmas" element={<TurmasPage />} />
-          <Route path="/notifications" element={<NotificationsPage />} />
-          <Route
-            path="/student-activities"
-            element={<StudentActivitiesPage />}
-          />
-          <Route path="/assignments" element={<AssignmentsPage />} />
-          <Route path="/assignment/:id" element={<AssignmentDetailPage />} />
-          <Route
-            path="/parent-view-assignment/:id"
-            element={<ParentViewAssignmentPage />}
-          />
-          <Route
-            path="/class-progress/:activityId"
-            element={<ClassProgressPage />}
-          />
+
+          {/* Páginas com Header */}
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<StudentDashboardPage />} />
+            <Route path="/parent-dashboard" element={<ParentDashboardPage />} />
+            <Route
+              path="/teacher-dashboard"
+              element={<TeacherDashboardPage />}
+            />
+            <Route path="/create-activity" element={<CreateActivityPage />} />
+            <Route path="/classes-students" element={<ClassesStudentsPage />} />
+            <Route path="/turmas" element={<TurmasPage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route
+              path="/student-activities"
+              element={<StudentActivitiesPage />}
+            />
+            <Route path="/assignments" element={<AssignmentsPage />} />
+            <Route path="/assignment/:id" element={<AssignmentDetailPage />} />
+            <Route
+              path="/parent-view-assignment/:id"
+              element={<ParentViewAssignmentPage />}
+            />
+            <Route
+              path="/class-progress/:activityId"
+              element={<ClassProgressPage />}
+            />
+          </Route>
         </Routes>
       </Router>
     </UserProvider>

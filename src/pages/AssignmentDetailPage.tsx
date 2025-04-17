@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Button from "../components/ui/Button";
 import { MdArrowBack, MdCheck } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
 import { Activity, Question, Option } from "../types/activity";
-import { Header } from "../components/layout/Header";
 
 // Mock activity data
 const activityData: Activity = {
@@ -77,8 +75,6 @@ const AssignmentDetailPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}

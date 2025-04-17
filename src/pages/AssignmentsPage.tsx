@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import { ActivityListItem } from "../types/activity";
-import { Header } from "../components/layout/Header";
 
 // Mock activities data
 const inProgressActivities: ActivityListItem[] = [
@@ -67,7 +66,6 @@ const completedActivities: ActivityListItem[] = [
 const AssignmentsPage = () => {
   return (
     <div className="bg-white min-h-screen">
-      <Header />
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* In Progress Activities Section */}

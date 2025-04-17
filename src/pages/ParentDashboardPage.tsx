@@ -19,7 +19,6 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import { Header } from "../components/layout/Header";
 
 const ParentDashboardPage = () => {
   const { user } = useUser();
@@ -56,8 +55,6 @@ const ParentDashboardPage = () => {
 
   return (
     <div className="bg-[#FFFFFF] min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Welcome Message */}

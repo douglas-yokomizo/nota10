@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { MdDelete, MdArrowBack } from "react-icons/md";
 import { useUser } from "../contexts/UserContext";
 import { Notification } from "../types/notification";
-import { Header } from "../components/layout/Header";
 
 // Mock notifications for different user roles
 const studentNotifications: Notification[] = [
@@ -140,8 +139,6 @@ const NotificationsPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}

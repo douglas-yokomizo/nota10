@@ -5,7 +5,6 @@ import {
   MdAdd,
   MdPeople,
   MdNotifications,
-  MdExitToApp,
   MdAssignment,
 } from "react-icons/md";
 import { useUser } from "../../contexts/UserContext";
@@ -31,7 +30,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
             <>
               <Link
                 to="/teacher-dashboard"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdDashboard className="mr-3 h-5 w-5" />
@@ -40,7 +39,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/create-activity"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdAdd className="mr-3 h-5 w-5" />
@@ -49,7 +48,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/classes-students"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdPeople className="mr-3 h-5 w-5" />
@@ -58,7 +57,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/notifications"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdNotifications className="mr-3 h-5 w-5" />
@@ -72,7 +71,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
             <>
               <Link
                 to="/dashboard"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdDashboard className="mr-3 h-5 w-5" />
@@ -81,7 +80,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/assignments"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdAssignment className="mr-3 h-5 w-5" />
@@ -90,7 +89,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/notifications"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdNotifications className="mr-3 h-5 w-5" />
@@ -104,7 +103,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
             <>
               <Link
                 to="/parent-dashboard"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdDashboard className="mr-3 h-5 w-5" />
@@ -113,7 +112,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/student-activities"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdAssignment className="mr-3 h-5 w-5" />
@@ -122,7 +121,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
 
               <Link
                 to="/notifications"
-                className="flex items-center text-white hover:text-gray-300 transition-colors"
+                className="flex items-center text-white hover:text-[#B3FF3B] transition-colors"
                 onClick={onClose}
               >
                 <MdNotifications className="mr-3 h-5 w-5" />
@@ -130,18 +129,6 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
               </Link>
             </>
           )}
-
-          {/* Logout button for all users */}
-          <div className="pt-6 mt-6 border-t border-gray-700">
-            <Link
-              to="/login"
-              className="flex items-center text-white hover:text-gray-300 transition-colors"
-              onClick={onClose}
-            >
-              <MdExitToApp className="mr-3 h-5 w-5" />
-              <span>Sair</span>
-            </Link>
-          </div>
         </nav>
       </div>
     </div>

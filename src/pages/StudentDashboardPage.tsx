@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/ui/Card";
 import { useUser } from "../contexts/UserContext";
-import logo from "../assets/logo.svg";
 
 import {
   PieChart,
@@ -19,14 +18,10 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import { MdMenu, MdClose, MdExitToApp } from "react-icons/md";
-import SideMenu from "../components/layout/SideMenu";
 
 const StudentDashboardPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user, isStudent, logout } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated, isStudent } = useUser();
 
   // Redirect to login if not authenticated or not a student
   useEffect(() => {
@@ -37,29 +32,6 @@ const StudentDashboardPage = () => {
       navigate("/login");
     }
   }, [isAuthenticated, isStudent, navigate]);
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
-
-  // Handle click outside to close menu
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        isMenuOpen
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
 
   // Mock data for the progress pie chart
   const progressData = [
@@ -88,46 +60,6 @@ const StudentDashboardPage = () => {
   return (
     <div className="bg-[#FFFFFF] min-h-screen">
       {/* Header */}
-      <header className="bg-[#141414] shadow-md relative">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-10 md:h-12 lg:h-14 w-auto"
-            />
-          </div>
-          <div className="flex items-center space-x-4">
-            {user && (
-              <div className="text-white text-sm hidden md:block">
-                {user.name}
-              </div>
-            )}
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={handleLogout}
-              title="Sair"
-            >
-              <MdExitToApp className="h-6 w-6" />
-            </button>
-            <button
-              className="text-gray-400 hover:text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? (
-                <MdClose className="h-6 w-6" />
-              ) : (
-                <MdMenu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Side Menu */}
-        <div ref={menuRef}>
-          <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">

@@ -5,7 +5,6 @@ import TextArea from "../components/ui/TextArea";
 import Select from "../components/ui/Select";
 import Modal from "../components/ui/Modal";
 import useForm from "../hooks/useForm";
-import { Header } from "../components/layout/Header";
 
 interface Alternative {
   text: string;
@@ -122,8 +121,6 @@ const CreateActivityPage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-md mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">

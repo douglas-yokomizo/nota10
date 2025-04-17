@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
-import Footer from "./Footer";
 
 const MainLayout = () => {
   return (
@@ -9,7 +8,6 @@ const MainLayout = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 };
