@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Select from "../components/ui/Select";
 import { ActivityListItem, Child } from "../types/activity";
-import { Header } from "../components/layout/Header";
 
 // Mock children data for parent
 const children: Child[] = [
@@ -151,8 +150,6 @@ const StudentActivitiesPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Child Selector */}

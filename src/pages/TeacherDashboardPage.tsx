@@ -17,7 +17,6 @@ import {
   Line,
 } from "recharts";
 import { MdFilterList, MdRefresh } from "react-icons/md";
-import { Header } from "../components/layout/Header";
 
 const TeacherDashboardPage = () => {
   const [selectedClass, setSelectedClass] = useState<string>("");
@@ -81,8 +80,6 @@ const TeacherDashboardPage = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Header />
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Class Selection */}
