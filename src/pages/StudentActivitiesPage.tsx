@@ -6,7 +6,7 @@ import { ActivityListItem, Child } from "../types/activity";
 
 // Mock children data for parent
 const children: Child[] = [
-  { id: 1, name: "João Vitor", class: "5º ano A" },
+  { id: 1, name: "Daniel Santos", class: "5º ano A" },
   { id: 2, name: "Maria Clara", class: "3º ano B" },
 ];
 
