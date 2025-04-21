@@ -144,7 +144,7 @@ export const mockUsers = {
   },
   student: {
     id: "2",
-    name: "Aluno Santos",
+    name: "Daniel Santos",
     email: "aluno@escola.com",
     role: "student" as UserRole,
   },

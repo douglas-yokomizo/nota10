@@ -1,46 +1,37 @@
 import Card from "../components/ui/Card";
 import { useUser } from "../contexts/UserContext";
-
+import { PieChartReusable } from "../components/charts/PieChartReusable";
+import { LineChartReusable } from "../components/charts/LineChartReusable";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
 } from "recharts";
+import { chartColors } from "../constants/chartColors";
 
 const ParentDashboardPage = () => {
   const { user } = useUser();
 
-  // Mock data for the student progress pie chart
   const studentProgressData = [
-    { name: "Concluído", value: 15, color: "#4CAF50" },
-    { name: "Não concluído", value: 7, color: "#FFC107" },
-    { name: "Não iniciado", value: 10, color: "#F44336" },
+    { name: "Concluído", value: 12, color: chartColors.completed },
+    { name: "Não concluído", value: 5, color: chartColors.inProgress },
+    { name: "Não iniciado", value: 8, color: chartColors.notStarted },
   ];
 
-  // Mock data for the timeline chart
   const timelineData = [
-    { month: "Jan", activities: 8 },
-    { month: "Fev", activities: 10 },
-    { month: "Mar", activities: 15 },
-    { month: "Abr", activities: 12 },
-    { month: "Mai", activities: 18 },
-    { month: "Jun", activities: 20 },
+    { month: "Jan", activities: 5 },
+    { month: "Fev", activities: 8 },
+    { month: "Mar", activities: 12 },
+    { month: "Abr", activities: 7 },
+    { month: "Mai", activities: 10 },
+    { month: "Jun", activities: 15 },
   ];
 
-  // Mock data for the radar chart (student performance by subject)
   const performanceData = [
     { subject: "Matemática", score: 80, fullMark: 100 },
     { subject: "Português", score: 90, fullMark: 100 },
@@ -50,14 +41,11 @@ const ParentDashboardPage = () => {
     { subject: "Inglês", score: 95, fullMark: 100 },
   ];
 
-  // Get child name from user context or use a default
-  const childName = "João"; // In a real app, this would come from the user context or API
+  const childName = "Daniel Santos";
 
   return (
     <div className="bg-[#FFFFFF] min-h-screen">
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        {/* Welcome Message */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-800">
             Bem-vindo(a), {user?.name}
@@ -67,82 +55,46 @@ const ParentDashboardPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Student Progress Chart */}
-          <Card bordered className="col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
+          <Card bordered>
             <div className="p-4">
               <h2 className="text-base font-bold mb-2">Gráfico do Aluno</h2>
               <p className="text-sm text-gray-500 mb-4">
-                Gráfico Pizza com as métricas de soma do Aluno das atividades
-                que já concluiu, que não concluíu e que não iniciou.
+                Status das atividades do aluno.
               </p>
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={studentProgressData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name, percent }) =>
-                        `${name}: ${(percent * 100).toFixed(0)}%`
-                      }
-                    >
-                      {studentProgressData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
+              <PieChartReusable data={studentProgressData} />
             </div>
           </Card>
+        </div>
 
-          {/* Timeline Chart */}
-          <Card bordered className="col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+          <Card bordered>
             <div className="p-4">
               <h2 className="text-base font-bold mb-2">Gráfico Timeline</h2>
               <p className="text-sm text-gray-500 mb-4">
-                Mostrar a participação do aluno durante os meses.
+                Participação ao longo dos meses.
               </p>
-              <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    data={timelineData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="activities"
-                      stroke="#6952EB"
-                      activeDot={{ r: 8 }}
-                      name="Atividades"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+              <LineChartReusable
+                data={timelineData}
+                lines={[
+                  {
+                    dataKey: "activities",
+                    stroke: chartColors.bar3,
+                    name: "Atividades",
+                  },
+                ]}
+              />
             </div>
           </Card>
 
-          {/* Performance Radar Chart */}
-          <Card bordered className="col-span-1">
+          <Card bordered>
             <div className="p-4">
               <h2 className="text-base font-bold mb-2">Desempenho do Aluno</h2>
               <p className="text-sm text-gray-500 mb-4">
-                Gráfico de Radar com as matérias que o aluno tem melhor
-                desempenho.
+                Matérias com melhor desempenho.
               </p>
               <div className="h-64 w-full">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer>
                   <RadarChart
                     cx="50%"
                     cy="50%"
@@ -153,10 +105,10 @@ const ParentDashboardPage = () => {
                     <PolarAngleAxis dataKey="subject" />
                     <PolarRadiusAxis angle={30} domain={[0, 100]} />
                     <Radar
-                      name="Desempenho"
+                      name="Daniel Santos"
                       dataKey="score"
-                      stroke="#52C2EB"
-                      fill="#52C2EB"
+                      stroke={chartColors.bar3}
+                      fill={chartColors.bar3}
                       fillOpacity={0.6}
                     />
                     <Tooltip />
