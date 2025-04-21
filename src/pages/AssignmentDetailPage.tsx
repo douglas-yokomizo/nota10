@@ -10,7 +10,7 @@ const activityData: Activity = {
   title: "Mapa Mundi: Desafio das Capitais",
   subject: "Geografia",
   class: "5º ano A",
-  studentName: "João Vitor",
+  studentName: "Daniel Santos",
   questions: [
     {
       id: 1,
@@ -50,7 +50,7 @@ const activityData: Activity = {
     },
   ],
   grade: 7.0,
-  status: "completed", // 'in-progress', 'pending', 'completed'
+  status: "in-progress", // 'in-progress', 'pending', 'completed'
 };
 
 const AssignmentDetailPage = () => {
