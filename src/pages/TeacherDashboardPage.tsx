@@ -1,88 +1,138 @@
 import { useState, useEffect } from "react";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-} from "recharts";
-import { MdFilterList, MdRefresh } from "react-icons/md";
+import { MdRefresh } from "react-icons/md";
+import { PieChartReusable } from "../components/charts/PieChartReusable";
+import { BarChartVerticalReusable } from "../components/charts/BarChartVerticalReusable";
+import { LineChartReusable } from "../components/charts/LineChartReusable";
+import { chartColors } from "../constants/chartColors";
+
+type ClassKey = "5º ano A" | "5º ano B" | "6º ano A";
 
 const TeacherDashboardPage = () => {
-  const [selectedClass, setSelectedClass] = useState<string>("");
+  const [selectedClass, setSelectedClass] = useState<ClassKey>("5º ano A");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("performance");
 
-  // Mock data for the dashboard
   const classes = [
     { id: 1, name: "5º ano A" },
     { id: 2, name: "5º ano B" },
     { id: 3, name: "6º ano A" },
   ];
 
-  // Mock data for student performance
-  const studentPerformance = [
-    { id: 1, name: "Ana Silva", grade: 8.5 },
-    { id: 2, name: "Bruno Costa", grade: 7.2 },
-    { id: 3, name: "Carla Oliveira", grade: 9.0 },
-    { id: 4, name: "Daniel Santos", grade: 6.8 },
-    { id: 5, name: "Eduarda Lima", grade: 8.0 },
-  ];
-
-  // Mock data for class completion
-  const classCompletion = [
-    { name: "Concluído", value: 15, color: "#4CAF50" },
-    { name: "Em andamento", value: 8, color: "#FFC107" },
-    { name: "Não iniciado", value: 5, color: "#F44336" },
-  ];
-
-  // Mock data for class comparison
-  const classComparison = [
-    { name: "5º ano A", average: 8.2 },
-    { name: "5º ano B", average: 7.5 },
-    { name: "6º ano A", average: 7.9 },
-  ];
-
-  // Mock data for student progress over time
-  const studentProgressData = [
-    { month: "Jan", completed: 5, pending: 2, notStarted: 3 },
-    { month: "Fev", completed: 7, pending: 3, notStarted: 2 },
-    { month: "Mar", completed: 10, pending: 4, notStarted: 1 },
-    { month: "Abr", completed: 12, pending: 3, notStarted: 0 },
-    { month: "Mai", completed: 15, pending: 2, notStarted: 0 },
-  ];
-
-  // Function to filter data based on selected class
-  const filterData = () => {
-    setIsLoading(true);
-    // Simulate API call delay
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
+  const mockData: Record<
+    ClassKey,
+    {
+      studentPerformance: { name: string; value: number; color: string }[];
+      classCompletion: { name: string; value: number; color: string }[];
+      classComparison: { name: string; value: number; color: string }[];
+      studentProgressData: {
+        month: string;
+        completed: number;
+        pending: number;
+        notStarted: number;
+      }[];
+    }
+  > = {
+    "5º ano A": {
+      studentPerformance: [
+        { name: "Ana Silva", value: 8.5, color: chartColors.bar2 },
+        { name: "Bruno Costa", value: 7.2, color: chartColors.bar2 },
+        { name: "Carla Oliveira", value: 9.0, color: chartColors.bar2 },
+        { name: "Daniel Santos", value: 6.8, color: chartColors.bar2 },
+        { name: "Eduarda Lima", value: 8.0, color: chartColors.bar2 },
+      ],
+      classCompletion: [
+        { name: "Concluído", value: 15, color: chartColors.completed },
+        { name: "Em andamento", value: 8, color: chartColors.inProgress },
+        { name: "Não iniciado", value: 5, color: chartColors.notStarted },
+      ],
+      classComparison: [
+        { name: "5º ano A", value: 8.2, color: chartColors.completed },
+        { name: "5º ano B", value: 7.5, color: chartColors.inProgress },
+        { name: "6º ano A", value: 7.9, color: chartColors.notStarted },
+      ],
+      studentProgressData: [
+        { month: "Jan", completed: 5, pending: 2, notStarted: 3 },
+        { month: "Fev", completed: 7, pending: 3, notStarted: 2 },
+        { month: "Mar", completed: 10, pending: 4, notStarted: 1 },
+        { month: "Abr", completed: 12, pending: 3, notStarted: 0 },
+        { month: "Mai", completed: 15, pending: 2, notStarted: 0 },
+      ],
+    },
+    "5º ano B": {
+      studentPerformance: [
+        { name: "Lucas Silva", value: 6.5, color: chartColors.bar2 },
+        { name: "Mariana Souza", value: 7.9, color: chartColors.bar2 },
+        { name: "João Pedro", value: 8.3, color: chartColors.bar2 },
+        { name: "Larissa Mello", value: 7.1, color: chartColors.bar2 },
+        { name: "Felipe Rocha", value: 6.8, color: chartColors.bar2 },
+      ],
+      classCompletion: [
+        { name: "Concluído", value: 10, color: chartColors.completed },
+        { name: "Em andamento", value: 12, color: chartColors.inProgress },
+        { name: "Não iniciado", value: 3, color: chartColors.notStarted },
+      ],
+      classComparison: [
+        { name: "5º ano A", value: 8.2, color: chartColors.completed },
+        { name: "5º ano B", value: 7.5, color: chartColors.inProgress },
+        { name: "6º ano A", value: 7.9, color: chartColors.notStarted },
+      ],
+      studentProgressData: [
+        { month: "Jan", completed: 3, pending: 3, notStarted: 4 },
+        { month: "Fev", completed: 6, pending: 4, notStarted: 1 },
+        { month: "Mar", completed: 8, pending: 5, notStarted: 0 },
+        { month: "Abr", completed: 9, pending: 4, notStarted: 0 },
+        { month: "Mai", completed: 11, pending: 3, notStarted: 0 },
+      ],
+    },
+    "6º ano A": {
+      studentPerformance: [
+        { name: "Gabriel Martins", value: 9.0, color: chartColors.bar2 },
+        { name: "Sofia Andrade", value: 8.7, color: chartColors.bar2 },
+        { name: "Henrique Dias", value: 7.9, color: chartColors.bar2 },
+        { name: "Beatriz Lima", value: 8.5, color: chartColors.bar2 },
+        { name: "Rafaela Campos", value: 9.2, color: chartColors.bar2 },
+      ],
+      classCompletion: [
+        { name: "Concluído", value: 18, color: chartColors.completed },
+        { name: "Em andamento", value: 4, color: chartColors.inProgress },
+        { name: "Não iniciado", value: 2, color: chartColors.notStarted },
+      ],
+      classComparison: [
+        { name: "5º ano A", value: 8.2, color: chartColors.completed },
+        { name: "5º ano B", value: 7.5, color: chartColors.inProgress },
+        { name: "6º ano A", value: 7.9, color: chartColors.notStarted },
+      ],
+      studentProgressData: [
+        { month: "Jan", completed: 6, pending: 1, notStarted: 3 },
+        { month: "Fev", completed: 9, pending: 2, notStarted: 0 },
+        { month: "Mar", completed: 12, pending: 1, notStarted: 0 },
+        { month: "Abr", completed: 14, pending: 0, notStarted: 0 },
+        { month: "Mai", completed: 18, pending: 0, notStarted: 0 },
+      ],
+    },
   };
 
-  // Effect to filter data when class changes
+  const {
+    studentPerformance,
+    classCompletion,
+    classComparison,
+    studentProgressData,
+  } = mockData[selectedClass];
+
+  const filterData = () => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 800);
+  };
+
   useEffect(() => {
-    if (selectedClass) {
-      filterData();
-    }
+    if (selectedClass) filterData();
   }, [selectedClass]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Class Selection */}
         <Card className="mb-8" bordered>
           <div className="p-4">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
@@ -91,7 +141,7 @@ const TeacherDashboardPage = () => {
               </h2>
               <div className="flex space-x-2">
                 <Button
-                  variant="outline"
+                  variant="primary"
                   size="small"
                   icon={<MdRefresh />}
                   onClick={filterData}
@@ -99,233 +149,119 @@ const TeacherDashboardPage = () => {
                 >
                   {isLoading ? "Carregando..." : "Atualizar"}
                 </Button>
-                <Button variant="outline" size="small" icon={<MdFilterList />}>
-                  Filtros
-                </Button>
               </div>
             </div>
             <div className="relative">
               <select
-                className="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+                className="block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:outline-none focus:ring-primary sm:text-sm"
                 value={selectedClass}
-                onChange={(e) => setSelectedClass(e.target.value)}
+                onChange={(e) => setSelectedClass(e.target.value as ClassKey)}
                 disabled={isLoading}
               >
-                <option value="">Selecione a turma</option>
                 {classes.map((cls) => (
-                  <option key={cls.id} value={cls.id}>
+                  <option key={cls.id} value={cls.name}>
                     {cls.name}
                   </option>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="h-4 w-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
             </div>
           </div>
         </Card>
 
-        {/* Dashboard Tabs */}
         <div className="mb-6 border-b border-gray-200">
           <nav className="-mb-px flex space-x-8">
-            <button
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "performance"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-              onClick={() => setActiveTab("performance")}
-            >
-              Desempenho
-            </button>
-            <button
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "progress"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-              onClick={() => setActiveTab("progress")}
-            >
-              Progresso
-            </button>
-            <button
-              className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
-                activeTab === "comparison"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-              onClick={() => setActiveTab("comparison")}
-            >
-              Comparativo
-            </button>
+            {["performance", "progress", "comparison"].map((tab) => (
+              <button
+                key={tab}
+                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab
+                    ? "border-[#6952EB] text-[#6952EB]"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab === "performance"
+                  ? "Desempenho"
+                  : tab === "progress"
+                  ? "Progresso"
+                  : "Comparativo"}
+              </button>
+            ))}
           </nav>
         </div>
 
-        {/* Dashboard Graphs */}
         {activeTab === "performance" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Student Performance */}
-            <Card className="col-span-1" bordered>
+            <Card bordered>
               <div className="p-4">
-                <h2 className="text-base font-bold mb-2">
-                  Desempenho dos Alunos
-                </h2>
+                <h2 className="font-bold mb-2">Desempenho dos Alunos</h2>
                 <p className="text-sm text-gray-500 mb-4">
-                  Gráfico de barras mostrando o desempenho individual dos
-                  alunos.
+                  Gráfico de barras com notas individuais.
                 </p>
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={studentPerformance}
-                      layout="vertical"
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-                      <XAxis type="number" domain={[0, 10]} />
-                      <YAxis dataKey="name" type="category" width={100} />
-                      <Tooltip formatter={(value) => [`${value}`, "Nota"]} />
-                      <Bar
-                        dataKey="grade"
-                        fill="#4F46E5"
-                        radius={[0, 4, 4, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+                <BarChartVerticalReusable
+                  data={studentPerformance}
+                  domain={[0, 10]}
+                />
               </div>
             </Card>
 
-            {/* Class Graph */}
-            <Card className="col-span-1" bordered>
+            <Card bordered>
               <div className="p-4">
-                <h2 className="text-base font-bold mb-2">Gráfico da Turma</h2>
+                <h2 className="font-bold mb-2">Gráfico da Turma</h2>
                 <p className="text-sm text-gray-500 mb-4">
-                  Gráfico Pizza com as métricas de soma Alunos que já
-                  concluíram, alunos que não concluíram e alunos que não
+                  Pizza com alunos que concluíram, estão em andamento ou não
                   iniciaram.
                 </p>
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={classCompletion}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        {classCompletion.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value, name) => [`${value} alunos`, name]}
-                      />
-                      <Legend />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
+                <PieChartReusable data={classCompletion} />
               </div>
             </Card>
           </div>
         )}
 
         {activeTab === "progress" && (
-          <div className="grid grid-cols-1 gap-8">
-            {/* Student Progress Over Time */}
-            <Card bordered>
-              <div className="p-4">
-                <h2 className="text-base font-bold mb-2">
-                  Progresso dos Alunos ao Longo do Tempo
-                </h2>
-                <p className="text-sm text-gray-500 mb-4">
-                  Gráfico de linha mostrando o progresso dos alunos nos últimos
-                  meses.
-                </p>
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                      data={studentProgressData}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="completed"
-                        stroke="#4CAF50"
-                        activeDot={{ r: 8 }}
-                        name="Concluído"
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="pending"
-                        stroke="#FFC107"
-                        name="Em andamento"
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="notStarted"
-                        stroke="#F44336"
-                        name="Não iniciado"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </Card>
-          </div>
+          <Card bordered>
+            <div className="p-4">
+              <h2 className="font-bold mb-2">Progresso dos Alunos</h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Gráfico de linha mostrando a evolução mensal.
+              </p>
+              <LineChartReusable
+                data={studentProgressData}
+                lines={[
+                  {
+                    dataKey: "completed",
+                    stroke: chartColors.completed,
+                    name: "Concluído",
+                  },
+                  {
+                    dataKey: "pending",
+                    stroke: chartColors.inProgress,
+                    name: "Em andamento",
+                  },
+                  {
+                    dataKey: "notStarted",
+                    stroke: chartColors.notStarted,
+                    name: "Não iniciado",
+                  },
+                ]}
+              />
+            </div>
+          </Card>
         )}
 
         {activeTab === "comparison" && (
-          <div className="grid grid-cols-1 gap-8">
-            {/* Comparative Graph */}
-            <Card bordered>
-              <div className="p-4">
-                <h2 className="text-base font-bold mb-2">
-                  Gráfico comparativo das Turmas
-                </h2>
-                <p className="text-sm text-gray-500 mb-4">
-                  Gráfico de Barras comparando as turmas por média de
-                  aproveitamento.
-                </p>
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={classComparison}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis domain={[0, 10]} />
-                      <Tooltip formatter={(value) => [`${value}`, "Média"]} />
-                      <Bar
-                        dataKey="average"
-                        fill="#4CAF50"
-                        radius={[4, 4, 0, 0]}
-                        name="Média da Turma"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </Card>
-          </div>
+          <Card bordered>
+            <div className="p-4">
+              <h2 className="font-bold mb-2">Média das Turmas</h2>
+              <p className="text-sm text-gray-500 mb-4">
+                Comparativo entre as médias das turmas.
+              </p>
+              <BarChartVerticalReusable
+                data={classComparison}
+                domain={[0, 10]}
+              />
+            </div>
+          </Card>
         )}
       </main>
     </div>
