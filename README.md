@@ -22,8 +22,10 @@ O Nota10 é uma plataforma educacional desenvolvida para facilitar a comunicaç�
 ├── src/                 # Código fonte
 │   ├── assets/          # Recursos estáticos (imagens, etc)
 │   ├── components/      # Componentes reutilizáveis
+│   │   ├── charts/      # Componentes de charts (graficos e dashboards)
 │   │   ├── layout/      # Componentes de layout (Header, Footer, etc)
 │   │   └── ui/          # Componentes de UI (Button, Card, etc)
+│   ├── constants        # Variáveis constantes
 │   ├── contexts/        # Contextos React (UserContext, etc)
 │   ├── hooks/           # Hooks personalizados
 │   ├── pages/           # Páginas da aplicação
@@ -133,8 +135,7 @@ Para testar a aplicação, utilize as seguintes credenciais:
 
 ## Design
 
-O design da aplicação foi desenvolvido no Figma e pode ser acessado através do link:
-[Figma - Nota10](https://www.figma.com/design/Yv6Mff8oc7l7h6dMnXgkpU/Hackaton-Postech-FIAP)
+Prototipo desenvolvido em mobile first no Figma.
 
 ## Princípios de Desenvolvimento
 
