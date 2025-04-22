@@ -12,7 +12,7 @@ const activitiesData: Activity[] = [
     title: "Mapa Mundi: Desafio das Capitais",
     subject: "Geografia",
     class: "5º ano A",
-    studentName: "João Vitor",
+    studentName: "Daniel Santos",
     questions: [
       {
         id: 1,
@@ -52,15 +52,15 @@ const activitiesData: Activity[] = [
       },
     ],
     grade: 7.0,
-    status: "completed", // 'in-progress', 'pending', 'completed'
+    status: "in-progress", // 'in-progress', 'pending', 'completed'
     childId: 1,
   },
   {
     id: 10,
     title: "Números de 1 a 10",
     subject: "Matemática",
-    class: "3º ano B",
-    studentName: "Maria Clara",
+    class: "5º ano A",
+    studentName: "Daniel Santos",
     questions: [
       {
         id: 1,
